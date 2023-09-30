@@ -1,6 +1,7 @@
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
+const { logger } = require('./logger');
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
@@ -26,16 +27,16 @@ app.prepare().then(() => {
         await handle(req, res, parsedUrl);
       }
     } catch (err) {
-      console.error('Error occurred handling', req.url, err);
+      logger.log('error', 'Error occurred handling', req.url, err);
       res.statusCode = 500;
       res.end('internal server error');
     }
   })
     .once('error', (err) => {
-      console.error(err);
+      logger.log('Unable to create nextjs server', err);
       process.exit(1);
     })
     .listen(port, () => {
-      console.log(`> Next Server Started on http://${hostname}:${port}`);
+      logger.log('info', `> Next Server Started on http://${hostname}:${port}`);
     });
 });

@@ -2,3 +2,5 @@ node_modules
 out
 !.storybook
 tailwind.config.js
+logging-service.js
+logger-socket-transport-service.js

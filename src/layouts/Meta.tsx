@@ -2,8 +2,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
-import { AppConfig } from '@/utils/AppConfig';
-
 type IMetaProps = {
   title: string;
   description: string;
@@ -55,8 +53,8 @@ const Meta = (props: IMetaProps) => {
           title: props.title,
           description: props.description,
           url: props.canonical,
-          locale: AppConfig.locale,
-          site_name: AppConfig.site_name,
+          locale: process.env.NEXT_PUBLIC_SITE_LOCATE,
+          site_name: process.env.NEXT_PUBLIC_SITE_NAME,
         }}
       />
     </>

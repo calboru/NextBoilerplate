@@ -32,66 +32,21 @@ const Main = (props: IMainProps) => (
                   Home
                 </Link>
               </li>
-              <li className="mr-6">
-                <Link
-                  href="/about/"
-                  className="border-none text-gray-700 hover:text-gray-900"
-                >
-                  About
-                </Link>
-              </li>
-              <li className="mr-6">
-                <Link
-                  href="/guestbook/"
-                  className="border-none text-gray-700 hover:text-gray-900"
-                >
-                  Guestbook
-                </Link>
-              </li>
-              <li className="mr-6">
-                <Link
-                  href="/portfolio/"
-                  className="border-none text-gray-700 hover:text-gray-900"
-                >
-                  Portfolio
-                </Link>
-              </li>
-              <li className="mr-6">
-                <Link
-                  href="/blog/"
-                  className="border-none text-gray-700 hover:text-gray-900"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li className="mr-6">
-                <a
-                  className="border-none text-gray-700 hover:text-gray-900"
-                  href="https://github.com/ixartz/Next-js-Boilerplate"
-                >
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          <nav>
-            <ul className="flex flex-wrap text-xl">
-              <li className="mr-6">
-                <Link
-                  href="/sign-in/"
-                  className="border-none text-gray-700 hover:text-gray-900"
-                >
-                  Sign in
-                </Link>
-              </li>
 
               <li className="mr-6">
                 <Link
-                  href="/sign-up/"
+                  href="/privacypolicy/"
                   className="border-none text-gray-700 hover:text-gray-900"
                 >
-                  Sign up
+                  Privacy and Policy
+                </Link>
+              </li>
+              <li className="mr-6">
+                <Link
+                  href="/termsofservice/"
+                  className="border-none text-gray-700 hover:text-gray-900"
+                >
+                  Terms of Service
                 </Link>
               </li>
             </ul>
@@ -99,17 +54,10 @@ const Main = (props: IMainProps) => (
         </div>
       </header>
 
-      <main className="content py-5 text-xl">{props.children}</main>
+      <main className="  py-5 text-xl">{props.children}</main>
 
       <footer className="border-t border-gray-300 py-8 text-center text-sm">
-        © Copyright {new Date().getFullYear()} {AppConfig.title}. Made with{' '}
-        <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>.
-        {/*
-         * PLEASE READ THIS SECTION
-         * I'm an indie maker with limited resources and funds, I'll really appreciate if you could have a link to my website.
-         * The link doesn't need to appear on every pages, one link on one page is enough.
-         * For example, in the `About` page. Thank you for your support, it'll mean a lot to me.
-         */}
+        © Copyright {new Date().getFullYear()} {AppConfig.title}.
       </footer>
     </div>
   </div>

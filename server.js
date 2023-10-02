@@ -2,6 +2,8 @@ const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
 const { logger } = require('./logger');
+const { startSocketServer } = require('./server-socket');
+const { task } = require('./server-backround');
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
@@ -12,6 +14,9 @@ const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
+  startSocketServer();
+  task.start();
+
   createServer(async (req, res) => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.

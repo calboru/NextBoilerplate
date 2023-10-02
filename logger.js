@@ -3,16 +3,8 @@ const morgan = require('morgan');
 require('winston-daily-rotate-file');
 const { consoleFormat } = require('winston-console-format');
 const dotenv = require('dotenv');
-
+const LoggerSocketTransport = require("./logger-socket-transport");
 dotenv.config();
-
-const dailyTransport = new transports.DailyRotateFile({
-  filename: `/var/log/${process.env.DAILY_LOG_FILE_NAME}-%DATE%.log`,
-  datePattern: 'YYYY-MM-DD-HH',
-  zippedArchive: true,
-  maxSize: '20m',
-  maxFiles: '14d',
-});
 
 const logger = createLogger({
   level: 'info',
@@ -27,12 +19,6 @@ const logger = createLogger({
   ),
   defaultMeta: { service: process.env.DAILY_LOG_FILE_NAME },
   transports: [
-    //
-    // - Write to all logs with level `info` and below to `quick-start-combined.log`.
-    // - Write all logs error (and below) to `quick-start-error.log`.
-    //
-
-    dailyTransport,
     new transports.Console({
       format: format.combine(
         format.colorize({ all: true }),
@@ -50,21 +36,29 @@ const logger = createLogger({
         }),
       ),
     }),
+    new LoggerSocketTransport(),
+    
   ],
 });
 
-//
-// If we're not in production then **ALSO** log to the `console`
-// with the colorized simple format.
-//
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(
-    new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
-    }),
-  );
-}
 
+require('winston-daily-rotate-file');
+  logger.configure({
+    level: 'error',
+    transports: [
+      new transports.DailyRotateFile(
+      {
+        filename: `/var/log/${process.env.DAILY_LOG_FILE_NAME}-%DATE%.log`,
+        datePattern: 'YYYY-MM-DD-HH',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d',
+      })
+  ]
+});
+
+
+ 
 const morganMiddleware = morgan(
   (tokens, req, res) => {
     return JSON.stringify({
